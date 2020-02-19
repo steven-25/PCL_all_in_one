@@ -39,9 +39,9 @@ std::vector<Car> initHighway(bool renderScene, pcl::visualization::PCLVisualizer
 void cityBlock(pcl::visualization::PCLVisualizer::Ptr& viewer, ProcessPointClouds<pcl::PointXYZI>*& pointProcessorI, pcl::PointCloud<pcl::PointXYZI>::Ptr& inputCloudI)
 {
     
-    Eigen::Vector4f a(5.0, 5.0, 5.0,5.0);
-    Eigen::Vector4f b(5.0, 5.0, 5.0,5.0);
-    pcl::PointCloud<pcl::PointXYZI>::Ptr inputFilteredCloud = pointProcessorI->FilterCloud(inputCloudI, 1.0, a, b);
+    Eigen::Vector4f min(-5.0, -5.0, -5.0,1.0);
+    Eigen::Vector4f max(5.0, 5.0, 5.0,1.0);
+    pcl::PointCloud<pcl::PointXYZI>::Ptr inputFilteredCloud = pointProcessorI->FilterCloud(inputCloudI, 0.1f, min, max);
     std::pair< pcl::PointCloud<pcl::PointXYZI>::Ptr, pcl::PointCloud<pcl::PointXYZI>::Ptr> segment = pointProcessorI->SegmentPlane(inputCloudI, 100, 0.2);
     renderPointCloud(viewer, segment.first, "plancloud", Color(1,0,0));       //输出点云分割地面的结果
     renderPointCloud(viewer, segment.second, "obstcloud", Color(0,1,0));      //输出点云分割障碍物的结果
